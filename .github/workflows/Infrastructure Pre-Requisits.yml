@@ -1,0 +1,22 @@
+name: sas test iac pre-req
+on:
+  workflow_dispatch:
+
+permissions:
+      id-token: write
+      contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: 'Run Azure CLI commands'
+        run: |
+            az group create --name sas-test-tf --location eastus
+            az storage account create -n sastesttfstate -g sas-test-tf -l eastus2 --sku Standard_LRS --location eastus
+            az storage container create -n tfstate --account-name sastesttfstate --auth-mode login
