@@ -1,4 +1,4 @@
-name: sas test iac pre-req
+name: Infrastructure Pre-Requisits
 on:
   workflow_dispatch:
 
