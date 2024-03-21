@@ -3,5 +3,5 @@ resource "azurerm_container_registry" "main" {
   name                = var.acr-name
   resource_group_name = var.rg-name
   sku                 = "Standard"
-  admin_enabled       = true
+  admin_enabled       = false
 }
