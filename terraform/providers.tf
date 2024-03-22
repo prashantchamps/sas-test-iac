@@ -16,9 +16,9 @@ provider "gitlab" {
 provider "flux" {
   kubernetes = {
     host                   = azurerm_kubernetes_cluster.main.endpoint
-    client_certificate     = azurerm_kubernetes_cluster.main.client_certificate
-    client_key             = azurerm_kubernetes_cluster.main.client_key
-    cluster_ca_certificate = azurerm_kubernetes_cluster.main.cluster_ca_certificate
+    client_certificate     = azurerm_kubernetes_cluster.main.kube_config.0.client_certificate
+    client_key             = azurerm_kubernetes_cluster.main.kube_config.0.client_key
+    cluster_ca_certificate = azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate
   }
   git = {
     url = "ssh://git@gitlab.com/${data.gitlab_project.main.path_with_namespace}.git"
