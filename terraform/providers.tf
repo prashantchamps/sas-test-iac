@@ -13,10 +13,8 @@ provider "helm" {
   }
 }
 
-provider "kind" {}
-
-resource "kind_cluster" "main" {
-  name = "azurerm_kubernetes_cluster.main.name"
+provider "gitlab" {
+  token = var.gitlab_token
 }
 
 terraform {
