@@ -11,5 +11,5 @@ resource "github_repository_deploy_key" "main" {
 resource "flux_bootstrap_git" "main" {
   depends_on       = [github_repository_deploy_key.main]
   path             = "clusters/sas-test-aks"
-  components_extra = [image-reflector-controller,image-automation-controller]
+  components_extra = ["image-reflector-controller", "image-automation-controller"]
 }
