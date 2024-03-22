@@ -42,5 +42,5 @@ variable "github_token" {
 }
 variable "github_repository" {
   type    = string
-  default = "prashantchamps/flux-image-updates"
+  default = "flux-image-updates"
 }
