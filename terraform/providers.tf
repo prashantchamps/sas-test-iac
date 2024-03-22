@@ -10,8 +10,8 @@ provider "helm" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
   }
 }
-provider "gitlab" {
-  token = var.gitlab_token
+provider "github" {
+  token = var.github_token
 }
 provider "flux" {
   kubernetes = {
@@ -52,9 +52,6 @@ terraform {
     source  = "integrations/github"
     version = ">=5.18.0"
   }
-}
-data "gitlab_project" "main" {
-  path_with_namespace = "${var.gitlab_group}/${var.gitlab_project}"
 }
 data "azurerm_client_config" "current" {}
 #data "azurerm_kubernetes_cluster" "main" {
