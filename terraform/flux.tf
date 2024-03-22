@@ -2,11 +2,12 @@ resource "tls_private_key" "flux" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P256"
 }
-
-data "gitlab_project" "main" {
-  path_with_namespace = "${var.gitlab_group}/${var.gitlab_project}"
+resource "github_repository_deploy_key" "this" {
+  title      = "Flux"
+  repository = var.github_repository
+  key        = tls_private_key.flux.public_key_openssh
+  read_only  = "false"
 }
-
 resource "gitlab_deploy_key" "main" {
   project  = data.gitlab_project.main.id
   title    = "Flux"
