@@ -43,3 +43,12 @@ variable "password" {
   type        = string
   description = "Azure Kubernetes Service Cluster password"
 }
+
+variable "github_token" {
+  sensitive = true
+  type      = string
+}
+
+variable "github_repository" {
+  type = string
+}
