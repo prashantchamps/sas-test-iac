@@ -17,6 +17,22 @@ provider "gitlab" {
   token = var.gitlab_token
 }
 
+provider "flux" {
+  kubernetes = {
+    host                   = azurerm_kubernetes_cluster.main.endpoint
+    client_certificate     = azurerm_kubernetes_cluster.main.client_certificate
+    client_key             = azurerm_kubernetes_cluster.main.client_key
+    cluster_ca_certificate = azurerm_kubernetes_cluster.main.cluster_ca_certificate
+  }
+  git = {
+    url = "ssh://git@gitlab.com/${data.gitlab_project.main.path_with_namespace}.git"
+    ssh = {
+      username    = "git"
+      private_key = tls_private_key.flux.private_key_pem
+    }
+  }
+}
+
 terraform {
   required_providers {
     azurerm = {
@@ -41,6 +57,10 @@ terraform {
     source  = "integrations/github"
     version = ">=5.18.0"
   }
+}
+
+data "gitlab_project" "main" {
+  path_with_namespace = "${var.gitlab_group}/${var.gitlab_project}"
 }
 
 data "azurerm_client_config" "current" {}
