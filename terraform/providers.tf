@@ -2,9 +2,7 @@ provider "azurerm" {
   features {}
 }
 
-provider "azuread" {
-
-}
+provider "azuread" {}
 
 provider "helm" {
   kubernetes {
@@ -13,6 +11,12 @@ provider "helm" {
     client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
   }
+}
+
+provider "kind" {}
+
+resource "kind_cluster" "main" {
+  name = "azurerm_kubernetes_cluster.main.name"
 }
 
 terraform {
@@ -31,6 +35,13 @@ terraform {
     storage_account_name = "sastesttfstate"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
+  }
+  flux = {
+    source = "fluxcd/flux"
+  }
+  github = {
+    source  = "integrations/github"
+    version = ">=5.18.0"
   }
 }
 
