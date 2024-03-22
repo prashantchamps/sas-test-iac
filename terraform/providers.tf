@@ -13,6 +13,21 @@ provider "helm" {
 provider "github" {
   token = var.github_token
 }
+provider "flux" {
+  kubernetes = {
+    host                   = azurerm_kubernetes_cluster.main.endpoint
+    client_certificate     = azurerm_kubernetes_cluster.main.kube_config.0.client_certificate
+    client_key             = azurerm_kubernetes_cluster.main.kube_config.0.client_key
+    cluster_ca_certificate = azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate
+  }
+  git = {
+    url = "ssh://git@github.com/${var.github_repository}.git"
+    ssh = {
+      username    = "git"
+      private_key = tls_private_key.flux.private_key_pem
+    }
+  }
+}
 terraform {
   required_providers {
     azurerm = {
@@ -23,19 +38,19 @@ terraform {
       source  = "hashicorp/helm"
       version = ">= 2.1.0"
     }
+    flux = {
+      source = "fluxcd/flux"
+    }
+    github = {
+      source  = "integrations/github"
+      version = ">=5.18.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "sas-test-tf"
     storage_account_name = "sastesttfstate"
     container_name       = "tfstate"
     key                  = "terraform.tfstate"
-  }
-  flux = {
-    source = "fluxcd/flux"
-  }
-  github = {
-    source  = "integrations/github"
-    version = ">=5.18.0"
   }
 }
 data "azurerm_client_config" "current" {}
