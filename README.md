@@ -65,3 +65,4 @@ This repository only fulfill the creation of core needed resources for the test 
 10) Follow document of [Test Application](https://github.com/prashantchamps/sas-test-application/blob/main/README.md) repository to deploy it.
 
 ## Conclusion
+After following all the steps our environment will be ready. DevOps team will be able to push any environment related changes using teraform and manifest repository, Developer team will be able to deploy their new application code changes in CICD.
