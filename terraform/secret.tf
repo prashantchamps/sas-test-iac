@@ -1,6 +1,6 @@
 resource "kubernetes_secret" "main" {
   metadata {
-    name = "regsecret"
+    name      = "regsecret"
     namespace = "flux-system"
   }
 
