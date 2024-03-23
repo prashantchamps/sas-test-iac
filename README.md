@@ -28,4 +28,23 @@ This is a testing exercise which evaluates Kubernetes Engineer. According to thi
      "galleryEndpointUrl": "https://gallery.azure.com/",
      "managementEndpointUrl": "https://management.core.windows.net/"
    }`
-2) Clone this repository into your github account with name "sas-test-iac"
+2) Clone this repository into your github account with name "sas-test-iac".
+3) Create a PAT from your GitHub account having all repo access.
+4) Create below repository level secrets and give appropriate values from step1 json and step3.
+   - ARM_CLIENT_ID
+   - ARM_CLIENT_SECRET
+   - ARM_SUBSCRIPTION_ID
+   - ARM_TENANT_ID
+   - AZURE_CREDENTIALS
+   - GIT_TOKEN
+5) Go to GitHub actions and run workflow Infrastructure Pre-Requisites. This will create a resource group and your storage account for Terraform with in that RG.
+6) Now run following CLI for attaching ACR with AKS which are created in step5.
+   
+   `az aks update -n sas-test-aks -g sas-test --attach-acr sasaksacrtest`
+
+   > [!NOTE]
+   > On executing CLI, If you get below error then please wait for 2 to 3 mins more and then run CLI again.
+   > 
+   > The resource with name 'sasaksacrtest' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'your       > subscription'. 
+   
+8) 
