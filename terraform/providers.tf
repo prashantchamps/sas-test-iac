@@ -3,7 +3,7 @@ provider "azurerm" {
 }
 provider "azuread" {}
 provider "helm" {
-  kubernetes {
+  kubectl {
     load_config_file       = false
     host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
@@ -15,7 +15,7 @@ provider "github" {
   token = var.github_token
 }
 provider "flux" {
-  kubernetes = {
+  kubectl = {
     load_config_file       = false
     host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
@@ -50,6 +50,10 @@ terraform {
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">=2.11.0"
+    }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+      version = ">= 1.7.0"
     }
   }
   backend "azurerm" {
