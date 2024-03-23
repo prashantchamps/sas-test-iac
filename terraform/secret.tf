@@ -5,7 +5,7 @@ resource "kubernetes_secret" "main" {
   }
 
   type = "kubernetes.io/dockerconfigjson"
-  load_config_file = false
+
   data = {
     ".dockerconfigjson" = jsonencode({
       auths = {
