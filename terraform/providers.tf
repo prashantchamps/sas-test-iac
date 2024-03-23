@@ -21,7 +21,7 @@ provider "flux" {
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
   }
   git = {
-    url = "ssh://git@github.com/prashantchamps/${var.github_repository}.git"
+    url = "ssh://git@github.com/${var.owner_username}/${var.github_repository}.git"
     ssh = {
       username    = "git"
       private_key = tls_private_key.flux.private_key_pem
