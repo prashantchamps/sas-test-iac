@@ -4,7 +4,7 @@ provider "azurerm" {
 provider "azuread" {}
 provider "helm" {
   kubernetes {
-    host                   = sas-test-aks-yhr6idti.hcp.eastus.azmk8s.io
+    host                   = "sas-test-aks-yhr6idti.hcp.eastus.azmk8s.io"
     client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
     client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
