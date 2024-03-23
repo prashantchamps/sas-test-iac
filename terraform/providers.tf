@@ -47,6 +47,10 @@ terraform {
       source  = "integrations/github"
       version = ">=5.18.0"
     }
+    kubernetes = {
+      source = "hashicorp/kubernetes"
+      version = ">= 1.13.3"
+    }    
   }
   backend "azurerm" {
     resource_group_name  = "sas-test-tf"
