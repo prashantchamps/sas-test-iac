@@ -23,6 +23,11 @@ variable "acr-name" {
   description = "A prefix used for all resources in this example"
   default     = "sasaksacrtest"
 }
+variable "registry_server" {
+  type        = string
+  description = "ACR server"
+  default     = "sasaksacrtest.azurecr.io"
+}
 variable "aks-version" {
   type        = string
   description = "A prefix used for all resources in this example"
