@@ -1,4 +1,6 @@
-# Test Exercise IaaC for Azure cloud
+# IaaC Test Exercise for Azure cloud
+
+## Architecture Diagram
 
 ![sas-test1](https://github.com/prashantchamps/sas-test-iac/assets/42674656/ad6ae4d0-e0e2-4d68-b3d9-94f8529e50aa)
 
@@ -38,13 +40,17 @@ This is a testing exercise which evaluates Kubernetes Engineer. According to thi
    - AZURE_CREDENTIALS
    - GIT_TOKEN
 5) Go to GitHub actions and run workflow Infrastructure Pre-Requisites. This will create a resource group and your storage account for Terraform with in that RG.
-6) Now run following CLI for attaching ACR with AKS which are created in step5.
+6) Now run workflow Infrastructure. This will create the core needed resources on Azure cloud.
+   > [!NOTE]
+   > Currently it is kept as manual run but we can automate it's trigger on completion of pevious workflow. 
+8) Now run following CLI for attaching ACR with AKS which are created in step5.
    
    `az aks update -n sas-test-aks -g sas-test --attach-acr sasaksacrtest`
 
-   > [!NOTE]
+   > [!CAUTION]
    > On executing CLI, If you get below error then please wait for 2 to 3 mins more and then run CLI again.
    > 
-   > The resource with name 'sasaksacrtest' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'your       > subscription'. 
-   
-8) 
+   > The resource with name 'sasaksacrtest' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'your       > subscription'.
+9) Your infrastructure is ready now.
+
+## Conclusion
