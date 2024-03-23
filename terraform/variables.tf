@@ -49,3 +49,7 @@ variable "github_repository" {
   type    = string
   default = "flux-image-updates"
 }
+variable "owner_username" {
+  type    = string
+  default = "prashantchamps"
+}
