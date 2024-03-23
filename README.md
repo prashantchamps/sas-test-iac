@@ -37,16 +37,17 @@ This repository only fulfill the creation of core needed resources for the test 
      "managementEndpointUrl": "https://management.core.windows.net/"
    }`
 2) Clone this repository into your github account with name "sas-test-iac".
-3) Create a PAT from your GitHub account having all repo access.
-4) Create below repository level secrets and give appropriate values from step1 json and step3.
+3) Change variable named "owner_username" according to your GitHub account.
+4) Create a PAT from your GitHub account having all repo access.
+5) Create below repository level secrets and give appropriate values from step1 json and step4.
    - ARM_CLIENT_ID
    - ARM_CLIENT_SECRET
    - ARM_SUBSCRIPTION_ID
    - ARM_TENANT_ID
    - AZURE_CREDENTIALS
    - GIT_TOKEN
-5) Go to GitHub actions and run workflow Infrastructure Pre-Requisites. This will create a resource group and your storage account for Terraform with in that RG.
-6) Now run workflow Infrastructure. This will create the core needed resources on Azure cloud.
+6) Go to GitHub actions and run workflow Infrastructure Pre-Requisites. This will create a resource group and your storage account for Terraform with in that RG.
+7) Now run workflow "Infrastructure". This will create the core needed resources on Azure cloud.
    > [!NOTE]
    > Currently it is kept as manual run but we can automate it's trigger on completion of pevious workflow. 
 8) Now run following CLI for attaching ACR with AKS which are created in step5.
@@ -57,6 +58,8 @@ This repository only fulfill the creation of core needed resources for the test 
    > On executing CLI, If you get below error then please wait for 2 to 3 mins more and then run CLI again.
    > 
    > The resource with name 'sasaksacrtest' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'your       > subscription'.
-9) Your infrastructure is ready now.
+9) Create the secret on k8s for accessing ACR from flux using kubectl command. This secret is already provided in sas-test-app-registry file of manifest repository i.e. [Manifest](https://github.com/prashantchamps/flux-image-updates). Please take client-id and client-secret from step 1.
+
+   `kubectl create secret docker-registry regcred --docker-server=sasaksacrtest.azurecr.io --docker-username=<client-id> --docker-password=<client-secret> -n flux-system`
 
 ## Conclusion
