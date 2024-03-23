@@ -4,7 +4,6 @@ provider "azurerm" {
 provider "azuread" {}
 provider "helm" {
   kubernetes {
-    config_path            = "/dev/null"
     host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
     client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
@@ -16,7 +15,6 @@ provider "github" {
 }
 provider "flux" {
   kubernetes = {
-    config_path            = "/dev/null"
     host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
     client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
@@ -48,6 +46,7 @@ terraform {
       version = ">=5.18.0"
     }
     kubernetes = {
+      load_config_file = false
       source  = "hashicorp/kubernetes"
       version = ">=2.11.0"
     }
