@@ -60,6 +60,8 @@ This repository only fulfill the creation of core needed resources for the test 
    > The resource with name 'sasaksacrtest' and type 'Microsoft.ContainerRegistry/registries' could not be found in subscription 'your       > subscription'.
 9) Create the secret on k8s for accessing ACR from flux using kubectl command. This secret is already provided in sas-test-app-registry file of manifest repository i.e. [Manifest](https://github.com/prashantchamps/flux-image-updates). Please take client-id and client-secret from step 1.
 
+   `az aks get-credentials --resource-group sas-test --name sas-test-aks`
    `kubectl create secret docker-registry regcred --docker-server=sasaksacrtest.azurecr.io --docker-username=<client-id> --docker-password=<client-secret> -n flux-system`
+10) Follow document of [Test Application](https://github.com/prashantchamps/sas-test-application/blob/main/README.md) repository to deploy it.
 
 ## Conclusion
