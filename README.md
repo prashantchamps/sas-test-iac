@@ -5,7 +5,13 @@
 ![sas-test1](https://github.com/prashantchamps/sas-test-iac/assets/42674656/ad6ae4d0-e0e2-4d68-b3d9-94f8529e50aa)
 
 ## Introduction
-This is a testing exercise which evaluates Kubernetes Engineer. According to this exercise we are going to create a demo application and then host on Azure cloud AKS in automated way called CI/CD using Terraform, GitHub and Flux. 
+This is a testing exercise which evaluates Kubernetes Engineer. According to this exercise we are going to create a demo application and then host on Azure cloud AKS in automated way called CI/CD using Terraform, GitHub and Flux.
+
+This repository only fulfill the creation of core needed resources for the test exercise. There are other 2 repositories as well which are related to this, Please read their relevent document to complete the exercise. 
+
+[Test Application](https://github.com/prashantchamps/sas-test-application/blob/main/README.md)
+
+[Manifest](https://github.com/prashantchamps/flux-image-updates/blob/main/README.md)
 
 ## Pre-Requisites
 1) You need an Azure Subscription with Owner access. 
