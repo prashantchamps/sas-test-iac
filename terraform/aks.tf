@@ -34,7 +34,7 @@ resource "azurerm_kubernetes_cluster" "main" {
   }
 
   role_based_access_control_enabled = true
-  local_account_disabled
+  local_account_disabled = true
 
   depends_on = [
     azurerm_resource_group.main,
