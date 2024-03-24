@@ -49,6 +49,10 @@ terraform {
       source  = "hashicorp/kubernetes"
       version = ">=2.11.0"
     }
+    azuread = {
+      source = "hashicorp/azuread"
+      version = "2.22.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "sas-test-tf"
