@@ -56,28 +56,34 @@ resource "azurerm_kubernetes_cluster_node_pool" "main" {
   ]
 }
 
-#data "azuread_service_principal" "main" {
-#  display_name = "sas-test-sp"
-#}
+data "azuread_service_principal" "main" {
+  display_name = "sas-test-sp"
+}
 
 #data "azurerm_container_registry" "main" {
 #  name                = "sasaksacrtest"
 #  resource_group_name = var.rg-name
 #}
 
-#resource "azurerm_role_assignment" "acrpull_role" {
-#  scope                = data.azurerm_container_registry.main.id
-#  role_definition_name = "AcrPull"
-#  principal_id         = data.azuread_service_principal.main.object_id
-#}
-
 resource "azurerm_role_assignment" "acrpull_role" {
-  scope                = azurerm_container_registry.main.id
-  role_definition_name = "AcrPull"
-  principal_id         = azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id
+  scope                            = azurerm_container_registry.main.id
+  role_definition_name             = "AcrPull"
+  principal_id                     = data.azuread_service_principal.main.object_id
+  skip_service_principal_aad_check = true
   depends_on = [
     azurerm_resource_group.main,
     azurerm_kubernetes_cluster.main,
     azurerm_container_registry.main
   ]
 }
+
+#resource "azurerm_role_assignment" "acrpull_role" {
+#  scope                = azurerm_container_registry.main.id
+#  role_definition_name = "AcrPull"
+#  principal_id         = azurerm_kubernetes_cluster.main.kubelet_identity[0].object_id
+#  depends_on = [
+#    azurerm_resource_group.main,
+#    azurerm_kubernetes_cluster.main,
+#    azurerm_container_registry.main
+#  ]
+#}
