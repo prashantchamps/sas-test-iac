@@ -15,7 +15,7 @@ This repository only fulfill the creation of core needed resources for the test 
 
 ## Pre-Requisites
 1) You need an Azure Subscription with Owner access. 
-2) Should have knowledge on Azure (AKS, ACR, VNet, Storage), Terraform, GitHub, GitHub Actions (CI/CD), Flux.
+2) Should have basic understanding of Azure (AKS, ACR, VNet, Storage), Terraform, GitHub, GitHub Actions (CI/CD), Flux.
 
 ## Steps to create infrastructure on Azure cloud
 1) Create a service principal on Azure with Contributor role using CLI.
