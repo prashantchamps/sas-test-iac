@@ -4,9 +4,9 @@ provider "azurerm" {
 provider "azuread" {}
 provider "helm" {
   kubernetes {
-    host                   = azurerm_kubernetes_cluster.main.endpoint
+    host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
-    token                  = azurerm_kubernetes_cluster.main.token
+    token                  = azurerm_kubernetes_cluster.main.kube_config.0.token
     #host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     #client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
     #client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
@@ -18,9 +18,9 @@ provider "github" {
 }
 provider "flux" {
   kubernetes = {
-    host                   = azurerm_kubernetes_cluster.main.endpoint
+    host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
-    token                  = azurerm_kubernetes_cluster.main.token
+    token                  = azurerm_kubernetes_cluster.main.kube_config.0.token
     #host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
     #client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
     #client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
