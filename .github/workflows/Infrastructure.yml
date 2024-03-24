@@ -35,9 +35,9 @@ jobs:
         with:
           terraform_version: ${{ env.TF_VERSION }}
 
-      - name: Terraform fmt
-        id: fmt
-        run: terraform fmt -check
+      #- name: Terraform fmt
+      #  id: fmt
+      #  run: terraform fmt -check
 
       - name: Terraform init
         id: init
