@@ -4,10 +4,13 @@ provider "azurerm" {
 provider "azuread" {}
 provider "helm" {
   kubernetes {
-    host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
-    client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
-    client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
+    host                   = azurerm_kubernetes_cluster.main.endpoint
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
+    token                  = azurerm_kubernetes_cluster.main.token
+    #host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
+    #client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
+    #client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
+    #cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
   }
 }
 provider "github" {
@@ -15,10 +18,13 @@ provider "github" {
 }
 provider "flux" {
   kubernetes = {
-    host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
-    client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
-    client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
+    host                   = azurerm_kubernetes_cluster.main.endpoint
     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
+    token                  = azurerm_kubernetes_cluster.main.token
+    #host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
+    #client_certificate     = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_certificate)
+    #client_key             = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.client_key)
+    #cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.main.kube_config.0.cluster_ca_certificate)
   }
   git = {
     url = "ssh://git@github.com/${var.owner_username}/${var.github_repository}.git"
