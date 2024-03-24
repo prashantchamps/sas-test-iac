@@ -10,6 +10,11 @@ resource "azurerm_kubernetes_cluster" "main" {
   oidc_issuer_enabled               = true
   workload_identity_enabled         = true
   role_based_access_control_enabled = true
+  azure_active_directory_role_based_access_control {
+    managed                = true
+    admin_group_object_ids = var.aks_admin_group_object_ids
+    azure_rbac_enabled     = true
+  }
   network_profile {
     network_plugin = "azure"
     dns_service_ip = "10.0.64.10"
@@ -37,7 +42,6 @@ resource "azurerm_kubernetes_cluster" "main" {
     azurerm_virtual_network.main
   ]
 }
-
 resource "azurerm_kubernetes_cluster_node_pool" "main" {
   name                  = "internal"
   kubernetes_cluster_id = azurerm_kubernetes_cluster.main.id
@@ -55,16 +59,9 @@ resource "azurerm_kubernetes_cluster_node_pool" "main" {
     azurerm_virtual_network.main
   ]
 }
-
 data "azuread_service_principal" "main" {
   display_name = "sas-test-sp"
 }
-
-#data "azurerm_container_registry" "main" {
-#  name                = "sasaksacrtest"
-#  resource_group_name = var.rg-name
-#}
-
 resource "azurerm_role_assignment" "acrpull_role" {
   scope                            = azurerm_container_registry.main.id
   role_definition_name             = "AcrPull"
@@ -75,4 +72,17 @@ resource "azurerm_role_assignment" "acrpull_role" {
     azurerm_kubernetes_cluster.main,
     azurerm_container_registry.main
   ]
+}
+resource "azurerm_role_assignment" "admin" {
+  for_each = toset(var.aks_admin_group_object_ids)
+  scope = azurerm_kubernetes_cluster.aks1.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id = each.value
+}
+
+resource "azurerm_role_assignment" "namespace-groups" {
+  for_each = toset(var.ad_groups)
+  scope = azurerm_kubernetes_cluster.aks1.id
+  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+  principal_id = azuread_group.groups[each.value].id
 }
