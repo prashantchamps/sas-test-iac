@@ -75,7 +75,7 @@ resource "azurerm_role_assignment" "acrpull_role" {
 }
 resource "azurerm_role_assignment" "admin" {
   for_each             = toset(var.aks_admin_group_object_ids)
-  scope                = azurerm_kubernetes_cluster.aks1.id
+  scope                = azurerm_kubernetes_cluster.main.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
   principal_id         = each.value
   depends_on = [
@@ -86,7 +86,7 @@ resource "azurerm_role_assignment" "admin" {
 }
 resource "azurerm_role_assignment" "namespace-groups" {
   for_each             = toset(var.ad_groups)
-  scope                = azurerm_kubernetes_cluster.aks1.id
+  scope                = azurerm_kubernetes_cluster.main.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
   principal_id         = azuread_group.groups[each.value].id
   depends_on = [
