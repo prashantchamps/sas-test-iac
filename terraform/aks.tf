@@ -9,13 +9,6 @@ resource "azurerm_kubernetes_cluster" "main" {
   sku_tier                          = "Free"
   oidc_issuer_enabled               = true
   workload_identity_enabled         = true
-  role_based_access_control {
-    enabled = true
-    azure_active_directory {
-      managed = true
-      admin_group_object_ids = [azuread_group.aks_administrators.id]
-    }
-  }
   role_based_access_control_enabled = true
   network_profile {
     network_plugin = "azure"
