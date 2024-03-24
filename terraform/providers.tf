@@ -58,7 +58,3 @@ terraform {
   }
 }
 data "azurerm_client_config" "current" {}
-#data "azurerm_kubernetes_cluster" "main" {
-#  name                = azurerm_kubernetes_cluster.main.name
-#  depends_on          = [azurerm_kubernetes_cluster.main]
-#}
