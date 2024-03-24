@@ -79,10 +79,16 @@ resource "azurerm_role_assignment" "admin" {
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
   principal_id = each.value
 }
-
 resource "azurerm_role_assignment" "namespace-groups" {
   for_each = toset(var.ad_groups)
   scope = azurerm_kubernetes_cluster.aks1.id
   role_definition_name = "Azure Kubernetes Service Cluster User Role"
   principal_id = azuread_group.groups[each.value].id
+}
+data "azuread_client_config" "current" {}
+resource "azuread_group" "groups" {
+  for_each         = toset(var.ad_groups)
+  display_name     = each.value
+  owners           = [data.azuread_client_config.current.object_id]
+  security_enabled = true
 }
