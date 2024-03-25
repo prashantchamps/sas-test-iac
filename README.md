@@ -65,6 +65,8 @@ After following above steps you can check on Azure portal. Below resources shoul
 Now go to sas-test-aks and check "aks-helloworld" in workloads should be up and running then check services and ingress.
 After deployment 2 Public facing IP will get generated, one will be load balancer and other will be Ingress Nginx. Check on azure portal and browse that ip address, the react js application should load its welcome page.
 
+![image](https://github.com/prashantchamps/sas-test-iac/assets/42674656/f075155d-771c-439e-a63d-b12999be905e)
+
 **I have used Flux "Automate image updates to Git" for CD**
 So for testing CI with GitHub Actions and CD with Flux, edit workflow "Build-Push-Image.yml" in repository "sas-test-application" and increment the tag of image. Now run the workflow and wait for its completion. After completion the image tag should get updated into AKS "aks-helloworld" workload **automatically**.
 
