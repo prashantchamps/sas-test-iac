@@ -53,13 +53,3 @@ variable "owner_username" {
   type    = string
   default = "prashantchamps"
 }
-variable "aks_admin_group_object_ids" {
-  description = "aks admin group ids"
-  type        = list(string)
-  default     = ["0c1249ab-6ebd-4b8e-a2cc-fa07d942e087"]
-}
-variable "ad_groups" {
-  description = "ad groups to be used in aks rolebindings"
-  type        = list(string)
-  default     = ["group1"]
-}
