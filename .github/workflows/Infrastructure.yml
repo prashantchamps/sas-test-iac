@@ -20,11 +20,6 @@ jobs:
             az group create --name sas-test-tf --location eastus
             az storage account create -n sastesttfstate -g sas-test-tf -l eastus2 --sku Standard_LRS --location eastus
             az storage container create -n tfstate --account-name sastesttfstate --auth-mode login
-      #- name: 'Run Azure Pre-Requisites CLI commands'
-      #  run: |
-      #      az group create --name sas-test-tf --location eastus
-      #      az storage account create -n sastesttfstate -g sas-test-tf -l eastus2 --sku Standard_LRS --location eastus
-      #      az storage container create -n tfstate --account-name sastesttfstate --auth-mode login
   Create-Infrastructure:
     needs: Create-PreRequisite
     name: 'Terraform to create Infra'
