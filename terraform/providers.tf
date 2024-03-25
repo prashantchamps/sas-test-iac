@@ -1,7 +1,6 @@
 provider "azurerm" {
   features {}
 }
-provider "azuread" {}
 provider "helm" {
   kubernetes {
     host                   = azurerm_kubernetes_cluster.main.kube_config.0.host
@@ -48,10 +47,6 @@ terraform {
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = ">=2.11.0"
-    }
-    azuread = {
-      source  = "hashicorp/azuread"
-      version = "2.22.0"
     }
   }
   backend "azurerm" {
