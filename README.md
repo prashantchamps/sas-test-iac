@@ -72,6 +72,9 @@ After deployment 2 Public facing IP will get generated, one will be load balance
 **I have used Flux "Automate image updates to Git" for CD**
 So for testing CI with GitHub Actions and CD with Flux, edit workflow "Build-Push-Image.yml" in repository "sas-test-application" and increment the tag of image. Now run the workflow and wait for its completion. After completion the image tag should get updated into AKS "aks-helloworld" workload **automatically**.
 
+## How to Test
+If you want to destroy created infrastructure then run workflow **"Infrastructure-Destroy"**.
+
 ## Conclusion
 After following all the steps our environment will be ready. DevOps team will be able to push any environment related changes using teraform and manifest repository simultaneously Developer team will be able to deploy their new application code changes using CICD.
 
