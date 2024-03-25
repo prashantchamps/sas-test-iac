@@ -53,11 +53,7 @@ This repository only fulfill the creation of core needed resources for the test 
    - AZURE_CREDENTIALS
    - GIT_TOKEN
 7) Now we are ready to run workflows, so go to GitHub actions and run workflow **"Infrastructure"**. This will create all necessary          resources for this exercise.
-8) Create the secret on k8s for accessing ACR from flux using kubectl command. This secret is already provided in sas-test-app-registry.yaml file of manifest repository i.e. [Manifest](https://github.com/prashantchamps/flux-image-updates). Please take client-id and client-secret from step 1 to execute below CLI.
-
-   `az aks get-credentials --resource-group sas-test --name sas-test-aks`
-   `kubectl create secret docker-registry regcred --docker-server=sasaksacrtest.azurecr.io --docker-username=<client-id> --docker-            password=<client-secret> -n flux-system`
-9) Follow document of [Test Application](https://github.com/prashantchamps/sas-test-application/blob/main/README.md) repository to           deploy it. Also please refer document of [Manifest](https://github.com/prashantchamps/flux-image-updates/blob/main/README.md)             repository to see the differnt yamls that are created for CD (Continuous Deployment).
+8) Follow document of [Test Application](https://github.com/prashantchamps/sas-test-application/blob/main/README.md) repository to           deploy it. Also please refer document of [Manifest](https://github.com/prashantchamps/flux-image-updates/blob/main/README.md)             repository to see the differnt yamls that are created for CD (Continuous Deployment).
 
 ## How to Test
 After following above steps you can check on Azure portal. Below resources should get created.
