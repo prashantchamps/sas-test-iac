@@ -10,11 +10,11 @@ resource "azurerm_kubernetes_cluster" "main" {
   oidc_issuer_enabled               = true
   workload_identity_enabled         = true
   role_based_access_control_enabled = true
-  azure_active_directory_role_based_access_control {
-    managed                = true
-    admin_group_object_ids = var.aks_admin_group_object_ids
-    azure_rbac_enabled     = true
-  }
+#  azure_active_directory_role_based_access_control {
+#    managed                = true
+#    admin_group_object_ids = var.aks_admin_group_object_ids
+#    azure_rbac_enabled     = true
+#  }
   network_profile {
     network_plugin = "azure"
     dns_service_ip = "10.0.64.10"
@@ -73,32 +73,32 @@ resource "azurerm_role_assignment" "acrpull_role" {
     azurerm_container_registry.main
   ]
 }
-resource "azurerm_role_assignment" "admin" {
-  for_each             = toset(var.aks_admin_group_object_ids)
-  scope                = azurerm_kubernetes_cluster.main.id
-  role_definition_name = "Azure Kubernetes Service Cluster User Role"
-  principal_id         = each.value
-  depends_on = [
-    azurerm_resource_group.main,
-    azurerm_kubernetes_cluster.main,
-    azurerm_container_registry.main
-  ]
-}
-resource "azurerm_role_assignment" "namespace-groups" {
-  for_each             = toset(var.ad_groups)
-  scope                = azurerm_kubernetes_cluster.main.id
-  role_definition_name = "Azure Kubernetes Service Cluster User Role"
-  principal_id         = azuread_group.groups[each.value].id
-  depends_on = [
-    azurerm_resource_group.main,
-    azurerm_kubernetes_cluster.main,
-    azurerm_container_registry.main
-  ]
-}
-data "azuread_client_config" "current" {}
-resource "azuread_group" "groups" {
-  for_each         = toset(var.ad_groups)
-  display_name     = each.value
-  owners           = [data.azuread_client_config.current.object_id]
-  security_enabled = true
-}
+#resource "azurerm_role_assignment" "admin" {
+#  for_each             = toset(var.aks_admin_group_object_ids)
+#  scope                = azurerm_kubernetes_cluster.main.id
+#  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+#  principal_id         = each.value
+#  depends_on = [
+#    azurerm_resource_group.main,
+#    azurerm_kubernetes_cluster.main,
+#    azurerm_container_registry.main
+#  ]
+#}
+#resource "azurerm_role_assignment" "namespace-groups" {
+#  for_each             = toset(var.ad_groups)
+#  scope                = azurerm_kubernetes_cluster.main.id
+#  role_definition_name = "Azure Kubernetes Service Cluster User Role"
+#  principal_id         = azuread_group.groups[each.value].id
+#  depends_on = [
+#    azurerm_resource_group.main,
+#    azurerm_kubernetes_cluster.main,
+#    azurerm_container_registry.main
+#  ]
+#}
+#data "azuread_client_config" "current" {}
+#resource "azuread_group" "groups" {
+#  for_each         = toset(var.ad_groups)
+#  display_name     = each.value
+#  owners           = [data.azuread_client_config.current.object_id]
+#  security_enabled = true
+#}
