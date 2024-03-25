@@ -68,3 +68,4 @@ jobs:
         run: |
             az aks get-credentials --resource-group sas-test --name sas-test-aks --overwrite-existing
             kubectl create secret docker-registry regcred --docker-server=sasaksacrtest.azurecr.io --docker-username=${{ secrets.ARM_CLIENT_ID }} --docker-password=${{ secrets.ARM_CLIENT_SECRET }} -n flux-system
+        continue-on-error: true
