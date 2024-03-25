@@ -56,3 +56,15 @@ jobs:
       - name: Terraform apply
         id: apply
         run: terraform apply -auto-approve
+  Create-Secret:
+    needs: Create-Infrastructure
+    runs-on: ubuntu-latest
+    steps:
+      - name: 'Login on Azure'
+        uses: azure/login@v1
+        with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: 'Run Azure Pre-Requisites CLI commands'
+        run: |
+            az aks get-credentials --resource-group sas-test --name sas-test-aks --overwrite-existing true
+            kubectl create secret docker-registry regcred --docker-server=sasaksacrtest.azurecr.io --docker-username=${{ secrets.ARM_CLIENT_ID }} --docker-password=${{ secrets.ARM_CLIENT_SECRET }} -n flux-system
